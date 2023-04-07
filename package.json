@@ -1,0 +1,29 @@
+{
+  "name": "impala-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "impala dev",
+    "build:server": "vite build --ssr",
+    "build:client": "vite build",
+    "build:prerender": "impala prerender",
+    "build": "npm run build:client && npm run build:server && npm run build:prerender",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fortaine/fetch-event-source": "^3.0.6",
+    "@impalajs/core": "*",
+    "@impalajs/react": "*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.7",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3.1.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0"
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "deno.enablePaths": [
+        "lib/edge",
+        "netlify/edge-functions"
+    ]
+}
