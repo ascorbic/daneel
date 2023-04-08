@@ -29,6 +29,7 @@ tables etc.
 2. [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/ascorbic/daneel),
    pasting the API key when prompted
 3. [Customize your bot](#customizing-your-bot)
+4. [Share your creation](https://github.com/ascorbic/daneel/discussions/categories/show-and-tell)
 
 ## Customizing your bot
 
