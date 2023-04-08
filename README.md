@@ -3,10 +3,11 @@
 ## Create your own GPT-powered chat bot
 
 You can use this template to create your own chat bot powered by OpenAI and the
-ChatGPT API. It includes a simple, easily customized chat interface which
-handles message history, a Netlify edge function that communicates securely with
-the OpenAI API, and simple styling with Tailwind. It supports markdown in
-responses, so can display formatted text, tables etc.
+ChatGPT API. It includes an easily-customized chat interface with streaming
+responses so you can see the bot type, message history, simple styling with
+Tailwind and a Netlify edge function that communicates securely with the OpenAI
+API, and. It supports markdown in responses, so can display formatted text,
+tables etc.
 
 ### [Demo site](https://daneel-demo.netlify.app/).
 
@@ -15,9 +16,10 @@ responses, so can display formatted text, tables etc.
 ## Features
 
 - :zap: deploy your bot in less than 5 minutes
-- :rocket: use the power of ChatGPT to generate responses
-- :moneybag: This template is completely free to use. Use free OpenAI credits to
-  get started, and deploy your site for free to Netlify.
+- :rocket: streaming responses powered by ChatGPT
+- :100: simple, high-performance chat interface
+- :moneybag: This template is completely free for any use. Use free OpenAI
+  credits to get started, and deploy your site for free to Netlify.
 - ⚛️ easy to customize: built with React, Tailwind and TypeScript
 
 ## Getting started
