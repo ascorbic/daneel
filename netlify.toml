@@ -1,5 +1,5 @@
 [build]
 publish = "dist/static"
-
+command = "npm run build"
 [dev]
 command = "npm run dev"

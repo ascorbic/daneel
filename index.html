@@ -3,8 +3,11 @@
   <head>
     <!--head-content-->
   </head>
-  <body>
-    <div id="__impala"><!--app-content--></div>
+  <body class="bg-gray-200">
+    <!-- to stop hydration errors -->
+    <!-- prettier-ignore -->
+    <div id="__impala" class="container mx-auto md:p-4 h-screen flex items-center justify-center"
+    ><!--app-content--></div>
     <script type="module" src="/src/entry-client"></script>
   </body>
 </html>
