@@ -69,13 +69,6 @@ export default function Index() {
                       href="https://github.com/ascorbic/daneel"
                     >
                       Daneel
-                    </a>{" "}
-                    and{" "}
-                    <a
-                      className="underline"
-                      href="https://github.com/ascorbic/impala"
-                    >
-                      Impala
                     </a>
                   </p>
                 </div>
@@ -134,7 +127,7 @@ export default function Index() {
             />
             {state === "idle" ? (
               <button
-                className="bg-blue-500 text-white font-bold py-2 px-4 rounded-r-lg"
+                className="bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg"
                 type="submit"
               >
                 Send
