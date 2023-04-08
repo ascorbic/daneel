@@ -33,8 +33,9 @@ tables etc.
 
 ## Customizing your bot
 
-There are two main things that you will want to customize: the prompt and the
-design.
+### Name
+
+Edit your site title and description in `src/App.tsx`
 
 ### Prompt
 

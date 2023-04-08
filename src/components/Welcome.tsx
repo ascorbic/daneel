@@ -7,7 +7,7 @@ export const Welcome: React.FC = () => (
       your own bot in under five minutes.
     </p>
     <p>
-      <a className="underline" href="https://github.com/ascorbic/daneel">
+      <a className="underline" href="https://github.com/ascorbic/daneel#readme">
         Build your own
       </a>
     </p>
