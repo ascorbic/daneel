@@ -8,15 +8,17 @@ handles message history, a Netlify edge function that communicates securely with
 the OpenAI API, and simple styling with Tailwind. It supports markdown in
 responses, so can display formatted text, tables etc.
 
+### [Demo site](https://daneel-demo.netlify.app/).
+
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ascorbic/daneel)
 
 ## Features
 
 - :zap: deploy your bot in less than 5 minutes
-- :rocket: use the power of GPT-3.5 to generate responses
+- :rocket: use the power of ChatGPT to generate responses
 - :moneybag: This template is completely free to use. Use free OpenAI credits to
   get started, and deploy your site for free to Netlify.
-- :atom: easy to customize: built with React, Tailwind and TypeScript
+- ⚛️ easy to customize: built with React, Tailwind and TypeScript
 
 ## Getting started
 
