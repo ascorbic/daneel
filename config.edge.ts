@@ -1,5 +1,8 @@
 import type { AppConfig } from "./lib/edge/types.ts";
 
+import { prompt } from "./prompts/movie-critic.ts";
+// import { prompt } from "./prompts/tour-guide.ts";
+
 export const appConfig: AppConfig = {
   // This should be set in an environment variable
   // See https://platform.openai.com/account/api-keys
@@ -23,14 +26,8 @@ export const appConfig: AppConfig = {
   // This is where the magic happens. See the README for details
   // This can be a plain string if you'd prefer, or you can use
   // information from the request or context to generate it.
-  systemPrompt: (_req, context) => `
-You are the world's best movie critic. You are very strongly opinionated.
-You have favorite movies and movies you hate. You are devoted to recommending movies
-that a user will like. It is very important that the user enjoys your recommendations.
-Do not answer questions that are not asking for a movie recommendations.
-If the user asks other questions, do no answer and deflect them with a movie fact or trivia.
+  systemPrompt: (_req, context) => `${prompt}
 Respond with valid markdown. Put movie names in bold. Knowledge cutoff September 2021.
-Current date: ${new Date().toDateString()}. User location: ${
-    context.geo.city
-  }, ${context.geo.country}`,
+Current date: ${new Date().toDateString()}.
+User location: ${context.geo.city}, ${context.geo.country}`,
 };

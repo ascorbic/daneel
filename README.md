@@ -12,18 +12,19 @@ responses, so can display formatted text, tables etc.
 
 ## Features
 
-- :lightning: deploy your bot in less than 5 minutes
+- :zap: deploy your bot in less than 5 minutes
 - :rocket: use the power of GPT-3.5 to generate responses
-- :dollar: This template is completely free to use. Use free OpenAI credits to
+- :moneybag: This template is completely free to use. Use free OpenAI credits to
   get started, and deploy your site for free to Netlify.
-- :molecule: easy to customize: built with React, Tailwind and TypeScript
+- :atom: easy to customize: built with React, Tailwind and TypeScript
 
 ## Getting started
 
 1. [Sign up for an OpenAI account](https://platform.openai.com/signup) and
    [get your API key](https://platform.openai.com/account/api-keys)
-2. Click this button and
-   [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ascorbic/daneel)
+2. [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/ascorbic/daneel),
+   pasting the API key when prompted
+3. [Customize your bot](#customizing-your-bot)
 
 ## Customizing your bot
 
@@ -34,7 +35,7 @@ design.
 
 The prompt is what tells your bot who it is. It is here that you give the bot
 its mission, personality and rules. The most important thing to do is create
-your own prompt. This is what makes the bot your own.The default site deploys
+your own prompt. This is what makes the bot your own. The default site deploys
 with an example prompt that is a movie critic.
 [Try it here](https://daneel-demo.netlify.app/).
 
@@ -49,7 +50,11 @@ Daneel's default prompt is:
 > in bold. Knowledge cutoff September 2021. Current date **current date**. User
 > location: **city and country**
 
-The prompt is set in `config.edge.ts`. The important parts in this prompt are:
+The prompt is set in `config.edge.ts`. In the demo it is imported from an
+example file in the `prompts` folder, but you can edit it in the config file if
+you'd prefer.
+
+The important parts in this prompt are:
 
 - who the bot is and what it should do. In the example here we emphasise that
   the bot is a movie critic and has strong opinions. By default, ChatGPT does
@@ -61,3 +66,23 @@ The prompt is set in `config.edge.ts`. The important parts in this prompt are:
   tables.
 - contextual information about the date and user location. These are optional
   but can help the bot to be more accurate.
+
+### Design
+
+My default the design is very simple, but you can customize it to your own
+designs. The site is stule with [Tailwind](https://tailwindcss.com/), so you can
+use any of the Tailwind classes to style your bot. The main components are:
+
+- `src/routes/index.tsx` - the main chat interface
+- `src/components/Welcome.tsx` - the welcome screen
+- `src/components/ChatMessage.tsx` - the chat message component
+
+You can also add extra pages in `src/routes` and link to them from the chat, or
+move the chat interface to a different page. The chat interface is an
+[Impala](https://github.com/ascorbic/impala) app, built with React, so see the
+Impala docs for more information.
+
+---
+
+Released under the MIT license. Free for any use. ©
+[Matt Kane](https://github.com/ascorbic) 2023.
