@@ -1,6 +1,8 @@
 import { fetchEventSource } from "@fortaine/fetch-event-source";
 import { useState, useMemo } from "react";
 import { appConfig } from "../../config.browser";
+
+const API_PATH = "/api/chat";
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
@@ -64,7 +66,7 @@ export function useChat() {
 
     // This is like an EventSource, but allows things like
     // POST requests and headers
-    fetchEventSource("/chat", {
+    fetchEventSource(API_PATH, {
       body,
       method: "POST",
       signal: abortController.signal,
