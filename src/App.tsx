@@ -3,19 +3,20 @@ import "./App.css";
 import { Head } from "@impalajs/react/head";
 
 interface AppProps {
-	title: string;
+  title: string;
 }
 
 export const App: React.FC<React.PropsWithChildren<AppProps>> = ({
-	children,
-	title,
+  children,
+  title,
 }) => {
-	return (
-		<>
-			<Head>
-				<title>{title}</title>
-			</Head>
-			{children}
-		</>
-	);
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      {children}
+    </>
+  );
 };

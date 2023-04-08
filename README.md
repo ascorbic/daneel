@@ -1,19 +1,13 @@
-# Impala
+# 🤖 Daneel
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/213306/227727009-a4dc391f-efb1-4489-ad73-c3d3a327704a.png" width="100" />
-</p>
+## Create your own GPT-powered chat bot
 
-Thanks for trying the pre-alpha of Impala. To get started, run the dev server:
+You can use this template to create your own chat bot powered by OpenAI and the
+ChatGPT API.
 
-```bash
-npm run dev
-```
+## Features
 
-When you're ready to build for production, run:
-
-```bash
-npm run build
-```
-
-See [the GitHub repo](https://githb.com/ascorbic/impala) for more help.
+- :lightning: deploy your bot in less than 5 minutes
+- :rocket: use the power of GPT-3.5 to generate responses
+- :dollar: This template is completely free to use. Use free OpenAI credits to
+  get started, and deploy your site for free to Netlify.
