@@ -1,4 +1,6 @@
-Copyright (c) 2012-2023 Scott Chacon and others
+The MIT License (MIT)
+
+Copyright (c) 2023 Matt Kane
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
