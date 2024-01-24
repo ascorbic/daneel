@@ -1,63 +1,38 @@
-import { fetchEventSource } from "https://esm.sh/@fortaine/fetch-event-source@3.0.6";
-import { type ChatCompletionOptions } from "https://deno.land/x/openai@1.3.0/mod.ts";
-import { getResponseStream } from "./streams.ts";
+import OpenAI from "https://deno.land/x/openai@v4.25.0/mod.ts";
+
+import type {
+  ChatCompletionCreateParamsStreaming,
+  ChatCompletionMessageParam,
+} from "https://deno.land/x/openai@v4.25.0/resources/mod.ts";
 
 export { appConfig } from "../../config.edge.ts";
 
-export type ChatOptions = Omit<ChatCompletionOptions, "stream" | "model">;
-export function getChatStream(
+export type ChatOptions = Omit<ChatCompletionCreateParamsStreaming, "stream">;
+
+export async function getChatStream(
   options: ChatOptions,
-  apiKey: string
-): ReadableStream {
-  const ctrl = new AbortController();
+  apiKey: string,
+): Promise<ReadableStream> {
+  const openai = new OpenAI({ apiKey });
 
-  const { send, stream, close } = getResponseStream();
-
-  fetchEventSource("https://api.openai.com/v1/chat/completions", {
-    onmessage: (event) => {
-      const { data } = event;
-      if (data === "[DONE]") {
-        ctrl.abort();
-        send("event: done\n\n");
-        close();
-      }
-      const res = JSON.parse(event.data);
-      send(`event: delta\ndata: ${JSON.stringify(res?.choices[0]?.delta)}\n\n`);
-    },
-    // deno-lint-ignore require-await
-    onopen: async () => {
-      send(`event: open\n\n`);
-    },
-    onerror: (event) => {
-      console.error(event);
-      send(`event: error\ndata: ${event}\n\n`);
-      ctrl.abort();
-    },
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    signal: ctrl.signal,
-    body: JSON.stringify({
-      ...options,
-      model: "gpt-3.5-turbo",
-      stream: true,
-    }),
+  const response = await openai.chat.completions.create({
+    ...options,
+    stream: true,
   });
-  return stream;
+
+  return response.toReadableStream();
 }
 
 export function sanitizeMessages(
-  messages: ChatCompletionOptions["messages"],
+  messages: Array<ChatCompletionMessageParam>,
   historyLength = 8,
-  maxMessageLength = 1000
-): ChatCompletionOptions["messages"] {
+  maxMessageLength = 1000,
+): Array<ChatCompletionMessageParam> {
   return messages.slice(-historyLength).map(({ content, role }) => {
     if (role !== "assistant" && role !== "user") {
-      return { role: "", content: "" };
+      return;
     }
-    content = content.slice(0, maxMessageLength);
-    return { content, role };
-  });
+    content = content?.slice(0, maxMessageLength);
+    return { content, role } as ChatCompletionMessageParam;
+  }).filter(Boolean) as Array<ChatCompletionMessageParam>;
 }

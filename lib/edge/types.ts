@@ -1,4 +1,7 @@
-import type { ChatCompletionOptions } from "https://deno.land/x/openai@1.3.0/mod.ts";
+import type {
+  ChatCompletionCreateParamsStreaming,
+} from "https://deno.land/x/openai@v4.25.0/resources/mod.ts";
+
 import type { Context } from "https://edge.netlify.com/";
 export interface AppConfig {
   // The maximum number of message in the history to send to the API
@@ -16,5 +19,5 @@ export interface AppConfig {
     | ((request: Request, Context: Context) => string | Promise<string>);
 
   // See https://platform.openai.com/docs/api-reference/chat/create
-  apiConfig?: Omit<ChatCompletionOptions, "stream" | "model" | "messages">;
+  apiConfig: Omit<ChatCompletionCreateParamsStreaming, "stream" | "messages">;
 }
