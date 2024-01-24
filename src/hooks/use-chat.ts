@@ -1,11 +1,29 @@
 import { fetchEventSource } from "@fortaine/fetch-event-source";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { appConfig } from "../../config.browser";
 
 const API_PATH = "/api/chat";
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
+}
+
+function streamAsyncIterator(stream: ReadableStream) {
+  const reader = stream.getReader();
+  return {
+    next() {
+      return reader.read();
+    },
+    return() {
+      reader.releaseLock();
+      return {
+        value: {},
+      };
+    },
+    [Symbol.asyncIterator]() {
+      return this;
+    },
+  };
 }
 
 /**
@@ -48,7 +66,10 @@ export function useChat() {
   /**
    * Sends a new message to the AI function and streams the response
    */
-  const sendMessage = (message: string, chatHistory: Array<ChatMessage>) => {
+  const sendMessage = async (
+    message: string,
+    chatHistory: Array<ChatMessage>,
+  ) => {
     setState("waiting");
     let chatContent = "";
     const newHistory = [
@@ -64,52 +85,45 @@ export function useChat() {
       messages: newHistory.slice(-appConfig.historyLength),
     });
 
-    // This is like an EventSource, but allows things like
-    // POST requests and headers
-    fetchEventSource(API_PATH, {
+    const decoder = new TextDecoder();
+
+    const res = await fetch(API_PATH, {
       body,
       method: "POST",
       signal: abortController.signal,
-      onclose: () => {
-        setState("idle");
-      },
-      onmessage: (event) => {
-        switch (event.event) {
-          case "delta": {
-            // This is a new word or chunk from the AI
-            setState("loading");
-            const message = JSON.parse(event.data);
-            if (message?.role === "assistant") {
-              chatContent = "";
-              return;
-            }
-            if (message.content) {
-              chatContent += message.content;
-              setCurrentChat(chatContent);
-            }
-            break;
-          }
-          case "open": {
-            // The stream has opened and we should recieve
-            // a delta event soon. This is normally almost instant.
-            setCurrentChat("...");
-            break;
-          }
-          case "done": {
-            // When it's done, we add the message to the history
-            // and reset the current chat
-            setChatHistory((curr) => [
-              ...curr,
-              { role: "assistant", content: chatContent } as const,
-            ]);
-            setCurrentChat(null);
-            setState("idle");
-          }
-          default:
-            break;
-        }
-      },
     });
+    
+    setCurrentChat("...");
+
+    if (!res.ok || !res.body) {
+      setState("idle");
+      return;
+    }
+
+    for await (const event of streamAsyncIterator(res.body)) {
+      setState("loading");
+      const data = decoder.decode(event).split("\n")
+      for (const chunk of data) {
+        if(!chunk) continue;
+        const message = JSON.parse(chunk);
+        if (message?.role === "assistant") {
+          chatContent = "";
+          continue;
+        }
+        const content = message?.choices?.[0]?.delta?.content
+        if (content) {
+          chatContent += content;
+          setCurrentChat(chatContent);
+        }
+      }
+    }
+
+    setChatHistory((curr) => [
+      ...curr,
+      { role: "assistant", content: chatContent } as const,
+    ]);
+    setCurrentChat(null);
+    setState("idle");
   };
 
   return { sendMessage, currentChat, chatHistory, cancel, clear, state };
